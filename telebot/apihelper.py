@@ -243,7 +243,10 @@ def send_message(
         payload['entities'] = json.dumps(types.MessageEntity.to_list_of_dicts(entities))
     if allow_sending_without_reply is not None:
         payload['allow_sending_without_reply'] = allow_sending_without_reply
-    return _make_request(token, method_url, params=payload, method='post')
+    try:
+        return _make_request(token, method_url, params=payload, method='post')
+    except Exception as e:
+        print(e)
 
 
 def set_webhook(token, url=None, certificate=None, max_connections=None, allowed_updates=None, ip_address=None,
